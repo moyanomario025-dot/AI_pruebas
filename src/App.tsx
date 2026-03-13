@@ -37,11 +37,11 @@ type ChatMessage = {
 };
 
 const STYLES: Style[] = [
-  { id: 'scandinavian', name: 'Scandinavian', description: 'Minimalist, functional, and cozy with light woods.', prompt: 'Transform this room into a bright Scandinavian style interior. Use light wood furniture, neutral tones (whites, grays), cozy textiles, and minimalist decor. Keep the basic structural layout.', previewColor: 'bg-slate-100' },
-  { id: 'mid-century', name: 'Mid-Century Modern', description: 'Retro vibes with organic shapes and wood accents.', prompt: 'Transform this room into a Mid-Century Modern style interior. Use iconic tapered-leg furniture, warm wood tones, pops of mustard yellow or teal, and geometric patterns. Keep the basic structural layout.', previewColor: 'bg-amber-100' },
-  { id: 'industrial', name: 'Industrial', description: 'Raw materials like brick, metal, and exposed wood.', prompt: 'Transform this room into an Industrial style interior. Use dark metal accents, exposed brick textures, leather furniture, and Edison bulb lighting. Keep the basic structural layout.', previewColor: 'bg-zinc-300' },
-  { id: 'bohemian', name: 'Bohemian', description: 'Eclectic, colorful, and full of natural textures.', prompt: 'Transform this room into a Bohemian style interior. Use vibrant colors, layered rugs, plenty of indoor plants, macrame wall art, and rattan furniture. Keep the basic structural layout.', previewColor: 'bg-orange-100' },
-  { id: 'modern-luxury', name: 'Modern Luxury', description: 'Sleek, sophisticated, and high-end materials.', prompt: 'Transform this room into a Modern Luxury style interior. Use marble surfaces, gold or brass accents, velvet upholstery, and sophisticated lighting. Keep the basic structural layout.', previewColor: 'bg-indigo-50' },
+  { id: 'scandinavian', name: 'Escandinavo', description: 'Minimalista, funcional y acogedor con maderas claras.', prompt: 'Transforma esta habitación en un interior luminoso de estilo escandinavo. Usa muebles de madera clara, tonos neutros (blancos, grises), textiles acogedores y decoración minimalista. Mantén la distribución estructural básica.', previewColor: 'bg-slate-100' },
+  { id: 'mid-century', name: 'Moderno de Mediados de Siglo', description: 'Vibras retro con formas orgánicas y detalles en madera.', prompt: 'Transforma esta habitación en un interior de estilo Moderno de Mediados de Siglo. Usa muebles icónicos de patas cónicas, tonos de madera cálidos, toques de amarillo mostaza o verde azulado, y patrones geométricos. Mantén la distribución estructural básica.', previewColor: 'bg-amber-100' },
+  { id: 'industrial', name: 'Industrial', description: 'Materiales crudos como ladrillo, metal y madera expuesta.', prompt: 'Transforma esta habitación en un interior de estilo Industrial. Usa detalles en metal oscuro, texturas de ladrillo expuesto, muebles de cuero e iluminación con bombillas Edison. Mantén la distribución estructural básica.', previewColor: 'bg-zinc-300' },
+  { id: 'bohemian', name: 'Bohemio', description: 'Ecléctico, colorido y lleno de texturas naturales.', prompt: 'Transforma esta habitación en un interior de estilo Bohemio. Usa colores vibrantes, alfombras superpuestas, muchas plantas de interior, arte de pared en macramé y muebles de ratán. Mantén la distribución estructural básica.', previewColor: 'bg-orange-100' },
+  { id: 'modern-luxury', name: 'Lujo Moderno', description: 'Elegante, sofisticado y con materiales de alta gama.', prompt: 'Transforma esta habitación en un interior de estilo Lujo Moderno. Usa superficies de mármol, detalles en oro o latón, tapicería de terciopelo e iluminación sofisticada. Mantén la distribución estructural básica.', previewColor: 'bg-indigo-50' },
 ];
 
 // --- Components ---
@@ -105,7 +105,7 @@ const CompareSlider = ({ original, reimagined }: { original: string; reimagined:
         Original
       </div>
       <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full text-white text-xs font-medium pointer-events-none">
-        Reimagined
+        Rediseñado
       </div>
     </div>
   );
@@ -131,7 +131,7 @@ export default function App() {
       chatSessionRef.current = ai.chats.create({
         model: 'gemini-3.1-pro-preview',
         config: {
-          systemInstruction: "You are an expert AI Interior Design Consultant. Help users refine their room designs. When they ask for changes, suggest how it would look. If they ask for items, provide shoppable-style descriptions and links (use example links like 'https://www.ikea.com' or 'https://www.westelm.com'). Be encouraging and professional. You have access to the user's uploaded room photo context."
+          systemInstruction: "Eres un experto Consultor de Diseño de Interiores de IA. Ayuda a los usuarios a refinar los diseños de sus habitaciones. Cuando pidan cambios, sugiere cómo se vería. Si piden artículos, proporciona descripciones estilo tienda y enlaces (usa enlaces de ejemplo como 'https://www.ikea.com' o 'https://www.westelm.com'). Sé alentador y profesional. Tienes acceso al contexto de la foto de la habitación subida por el usuario. Responde siempre en español."
         }
       });
     }
@@ -189,7 +189,7 @@ export default function App() {
     try {
       const base64Data = originalImage.split(',')[1];
       const prompt = refinementPrompt 
-        ? `Based on the previous design, ${refinementPrompt}. Keep the core structure of the room from the original photo.`
+        ? `Basado en el diseño anterior, ${refinementPrompt}. Mantén la estructura principal de la habitación de la foto original.`
         : style.prompt;
 
       const response = await ai.models.generateContent({
@@ -228,7 +228,7 @@ export default function App() {
       const isDesignChange = /change|make|add|remove|keep|color|style|rug|furniture|wall|reimagine/i.test(userMsg);
 
       const response = await chatSessionRef.current.sendMessage({ message: userMsg });
-      const modelText = response.text || "I'm sorry, I couldn't process that.";
+      const modelText = response.text || "Lo siento, no pude procesar eso.";
       setChatMessages(prev => [...prev, { role: 'model', text: modelText }]);
 
       if (isDesignChange) {
@@ -237,7 +237,7 @@ export default function App() {
       }
     } catch (error) {
       console.error("Chat failed:", error);
-      setChatMessages(prev => [...prev, { role: 'model', text: "I encountered an error. Please try again." }]);
+      setChatMessages(prev => [...prev, { role: 'model', text: "Encontré un error. Por favor, inténtalo de nuevo." }]);
     } finally {
       setIsChatting(false);
     }
@@ -254,14 +254,14 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-xl font-bold tracking-tight">Aura Interior AI</h1>
-              <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Design Consultant</p>
+              <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Consultor de Diseño</p>
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-sm font-medium text-zinc-600 hover:text-indigo-600 transition-colors">Gallery</a>
-            <a href="#" className="text-sm font-medium text-zinc-600 hover:text-indigo-600 transition-colors">Pricing</a>
+            <a href="#" className="text-sm font-medium text-zinc-600 hover:text-indigo-600 transition-colors">Galería</a>
+            <a href="#" className="text-sm font-medium text-zinc-600 hover:text-indigo-600 transition-colors">Precios</a>
             <button className="px-5 py-2 bg-zinc-900 text-white rounded-full text-sm font-medium hover:bg-zinc-800 transition-all shadow-md">
-              Get Started
+              Empezar
             </button>
           </nav>
         </div>
@@ -290,14 +290,14 @@ export default function App() {
               <div className="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Upload className="w-10 h-10 text-indigo-600" />
               </div>
-              <h2 className="text-2xl font-semibold mb-2">Upload your space</h2>
+              <h2 className="text-2xl font-semibold mb-2">Sube tu espacio</h2>
               <p className="text-zinc-500 max-w-xs mx-auto">
-                Take a photo of your room and let our AI reimagine the possibilities.
+                Toma una foto de tu habitación y deja que nuestra IA imagine las posibilidades.
               </p>
               <div className="mt-8 flex gap-2">
-                <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Living Room</span>
-                <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Bedroom</span>
-                <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Office</span>
+                <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Sala</span>
+                <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Dormitorio</span>
+                <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Oficina</span>
               </div>
             </motion.div>
           ) : (
@@ -311,8 +311,8 @@ export default function App() {
                     {isGenerating && (
                       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col items-center justify-center text-white">
                         <RefreshCw className="w-12 h-12 animate-spin mb-4" />
-                        <p className="text-lg font-medium">Reimagining your space...</p>
-                        <p className="text-sm opacity-70">Applying {selectedStyle.name} style</p>
+                        <p className="text-lg font-medium">Rediseñando tu espacio...</p>
+                        <p className="text-sm opacity-70">Aplicando estilo {selectedStyle.name}</p>
                       </div>
                     )}
                     {!isGenerating && (
@@ -322,7 +322,7 @@ export default function App() {
                           className="px-8 py-4 bg-white text-zinc-900 rounded-full font-bold shadow-2xl hover:scale-105 transition-transform flex items-center gap-3"
                         >
                           <Sparkles className="w-5 h-5 text-indigo-600" />
-                          Generate Design
+                          Generar Diseño
                         </button>
                       </div>
                     )}
@@ -340,7 +340,7 @@ export default function App() {
               {/* Style Carousel */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">Select Style</h3>
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">Seleccionar Estilo</h3>
                   <div className="flex gap-1">
                     <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
                     <div className="w-2 h-2 rounded-full bg-zinc-200"></div>
@@ -383,10 +383,10 @@ export default function App() {
                 <MessageSquare className="w-5 h-5 text-indigo-600" />
               </div>
               <div>
-                <h3 className="font-bold text-sm">Design Assistant</h3>
+                <h3 className="font-bold text-sm">Asistente de Diseño</h3>
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                  <span className="text-[10px] font-medium text-zinc-500">Online & Ready</span>
+                  <span className="text-[10px] font-medium text-zinc-500">En línea y listo</span>
                 </div>
               </div>
             </div>
@@ -404,8 +404,8 @@ export default function App() {
                 </div>
                 <p className="text-sm font-medium">
                   {originalImage 
-                    ? "Ask me to refine the design or find similar furniture items." 
-                    : "Upload a photo to start your design consultation."}
+                    ? "Pídeme que refine el diseño o busque muebles similares." 
+                    : "Sube una foto para comenzar tu consulta de diseño."}
                 </p>
               </div>
             ) : (
@@ -430,7 +430,7 @@ export default function App() {
                     </div>
                   </div>
                   <span className="text-[10px] text-zinc-400 mt-1 px-1">
-                    {msg.role === 'user' ? 'You' : 'Aura AI'}
+                    {msg.role === 'user' ? 'Tú' : 'Aura AI'}
                   </span>
                 </div>
               ))
@@ -442,7 +442,7 @@ export default function App() {
                   <span className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
                   <span className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce"></span>
                 </div>
-                <span className="text-[10px] font-medium">Assistant is thinking...</span>
+                <span className="text-[10px] font-medium">El asistente está pensando...</span>
               </div>
             )}
             <div ref={chatEndRef} />
@@ -460,7 +460,7 @@ export default function App() {
                     handleSendMessage();
                   }
                 }}
-                placeholder={originalImage ? "Try 'Make the rug blue' or 'Find this chair'..." : "Upload a photo first..."}
+                placeholder={originalImage ? "Prueba con 'Haz la alfombra azul' o 'Encuentra esta silla'..." : "Sube una foto primero..."}
                 disabled={!originalImage || isChatting}
                 className="w-full bg-white border border-black/10 rounded-2xl px-4 py-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all resize-none min-h-[56px] max-h-32"
                 rows={1}
@@ -477,7 +477,7 @@ export default function App() {
             <div className="mt-4 flex items-center gap-4">
               <button className="flex items-center gap-2 text-[11px] font-bold text-zinc-400 hover:text-indigo-600 transition-colors">
                 <ShoppingBag className="w-3.5 h-3.5" />
-                SHOP ITEMS
+                COMPRAR ARTÍCULOS
               </button>
               <div className="h-3 w-[1px] bg-zinc-200"></div>
               <button 
@@ -501,15 +501,15 @@ export default function App() {
             <span className="font-bold text-sm tracking-tighter">AURA INTERIOR AI</span>
           </div>
           <p className="text-sm text-zinc-400 max-w-md">
-            Transforming spaces with artificial intelligence. Aura AI helps you visualize your dream home in seconds.
+            Transformando espacios con inteligencia artificial. Aura AI te ayuda a visualizar la casa de tus sueños en segundos.
           </p>
           <div className="flex gap-8 text-xs font-medium text-zinc-500">
-            <a href="#" className="hover:text-zinc-900 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-zinc-900 transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-zinc-900 transition-colors">Contact Support</a>
+            <a href="#" className="hover:text-zinc-900 transition-colors">Política de Privacidad</a>
+            <a href="#" className="hover:text-zinc-900 transition-colors">Términos de Servicio</a>
+            <a href="#" className="hover:text-zinc-900 transition-colors">Soporte</a>
           </div>
           <p className="text-[10px] text-zinc-300 mt-4">
-            &copy; 2026 Aura Interior AI. All rights reserved.
+            &copy; 2026 Aura Interior AI. Todos los derechos reservados.
           </p>
         </div>
       </footer>
