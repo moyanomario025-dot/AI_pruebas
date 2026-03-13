@@ -29,6 +29,7 @@ type Style = {
   description: string;
   prompt: string;
   previewColor: string;
+  category: 'interior' | 'exterior';
 };
 
 type ChatMessage = {
@@ -37,14 +38,19 @@ type ChatMessage = {
 };
 
 const STYLES: Style[] = [
-  { id: 'scandinavian', name: 'Escandinavo', description: 'Minimalista, funcional y acogedor con maderas claras.', prompt: 'Transforma esta habitación en un interior luminoso de estilo escandinavo. Usa muebles de madera clara, tonos neutros (blancos, grises), textiles acogedores y decoración minimalista. Mantén la distribución estructural básica.', previewColor: 'bg-slate-100' },
-  { id: 'mid-century', name: 'Moderno de Mediados de Siglo', description: 'Vibras retro con formas orgánicas y detalles en madera.', prompt: 'Transforma esta habitación en un interior de estilo Moderno de Mediados de Siglo. Usa muebles icónicos de patas cónicas, tonos de madera cálidos, toques de amarillo mostaza o verde azulado, y patrones geométricos. Mantén la distribución estructural básica.', previewColor: 'bg-amber-100' },
-  { id: 'industrial', name: 'Industrial', description: 'Materiales crudos como ladrillo, metal y madera expuesta.', prompt: 'Transforma esta habitación en un interior de estilo Industrial. Usa detalles en metal oscuro, texturas de ladrillo expuesto, muebles de cuero e iluminación con bombillas Edison. Mantén la distribución estructural básica.', previewColor: 'bg-zinc-300' },
-  { id: 'bohemian', name: 'Bohemio', description: 'Ecléctico, colorido y lleno de texturas naturales.', prompt: 'Transforma esta habitación en un interior de estilo Bohemio. Usa colores vibrantes, alfombras superpuestas, muchas plantas de interior, arte de pared en macramé y muebles de ratán. Mantén la distribución estructural básica.', previewColor: 'bg-orange-100' },
-  { id: 'modern-luxury', name: 'Lujo Moderno', description: 'Elegante, sofisticado y con materiales de alta gama.', prompt: 'Transforma esta habitación en un interior de estilo Lujo Moderno. Usa superficies de mármol, detalles en oro o latón, tapicería de terciopelo e iluminación sofisticada. Mantén la distribución estructural básica.', previewColor: 'bg-indigo-50' },
-  { id: 'minimalist', name: 'Minimalista', description: 'Líneas limpias, espacios despejados y paleta monocromática.', prompt: 'Transforma esta habitación en un interior de estilo Minimalista. Usa líneas limpias, espacios despejados, una paleta monocromática (blanco, negro, gris) y solo muebles esenciales. Mantén la distribución estructural básica.', previewColor: 'bg-stone-100' },
-  { id: 'modern-rustic', name: 'Rústico Moderno', description: 'Encanto campestre con comodidades modernas y madera natural.', prompt: 'Transforma esta habitación en un interior de estilo Rústico Moderno. Usa madera natural sin tratar, vigas expuestas, tonos tierra, textiles de lino y detalles en hierro forjado. Mantén la distribución estructural básica.', previewColor: 'bg-amber-50' },
-  { id: 'japandi', name: 'Japandi', description: 'Fusión de elegancia japonesa y minimalismo escandinavo.', prompt: 'Transforma esta habitación en un interior de estilo Japandi. Usa una mezcla de elegancia japonesa y minimalismo escandinavo, maderas claras y oscuras contrastantes, bambú, papel de arroz y formas orgánicas bajas. Mantén la distribución estructural básica.', previewColor: 'bg-stone-200' },
+  { id: 'scandinavian', name: 'Escandinavo', description: 'Minimalista, funcional y acogedor con maderas claras.', prompt: 'Transforma este espacio en un diseño luminoso de estilo escandinavo. Usa muebles de madera clara, tonos neutros (blancos, grises), textiles acogedores y decoración minimalista. Mantén la distribución estructural básica.', previewColor: 'bg-slate-100', category: 'interior' },
+  { id: 'mid-century', name: 'Moderno de Mediados de Siglo', description: 'Vibras retro con formas orgánicas y detalles en madera.', prompt: 'Transforma este espacio en un diseño de estilo Moderno de Mediados de Siglo. Usa muebles icónicos de patas cónicas, tonos de madera cálidos, toques de amarillo mostaza o verde azulado, y patrones geométricos. Mantén la distribución estructural básica.', previewColor: 'bg-amber-100', category: 'interior' },
+  { id: 'industrial', name: 'Industrial', description: 'Materiales crudos como ladrillo, metal y madera expuesta.', prompt: 'Transforma este espacio en un diseño de estilo Industrial. Usa detalles en metal oscuro, texturas de ladrillo expuesto, muebles de cuero e iluminación con bombillas Edison. Mantén la distribución estructural básica.', previewColor: 'bg-zinc-300', category: 'interior' },
+  { id: 'bohemian', name: 'Bohemio', description: 'Ecléctico, colorido y lleno de texturas naturales.', prompt: 'Transforma este espacio en un diseño de estilo Bohemio. Usa colores vibrantes, alfombras superpuestas, muchas plantas, arte de pared en macramé y muebles de ratán. Mantén la distribución estructural básica.', previewColor: 'bg-orange-100', category: 'interior' },
+  { id: 'modern-luxury', name: 'Lujo Moderno', description: 'Elegante, sofisticado y con materiales de alta gama.', prompt: 'Transforma este espacio en un diseño de estilo Lujo Moderno. Usa superficies de mármol, detalles en oro o latón, tapicería de terciopelo e iluminación sofisticada. Mantén la distribución estructural básica.', previewColor: 'bg-indigo-50', category: 'interior' },
+  { id: 'minimalist', name: 'Minimalista', description: 'Líneas limpias, espacios despejados y paleta monocromática.', prompt: 'Transforma este espacio en un diseño de estilo Minimalista. Usa líneas limpias, espacios despejados, una paleta monocromática (blanco, negro, gris) y solo muebles esenciales. Mantén la distribución estructural básica.', previewColor: 'bg-stone-100', category: 'interior' },
+  { id: 'modern-rustic', name: 'Rústico Moderno', description: 'Encanto campestre con comodidades modernas y madera natural.', prompt: 'Transforma este espacio en un diseño de estilo Rústico Moderno. Usa madera natural sin tratar, vigas expuestas, tonos tierra, textiles de lino y detalles en hierro forjado. Mantén la distribución estructural básica.', previewColor: 'bg-amber-50', category: 'interior' },
+  { id: 'japandi', name: 'Japandi', description: 'Fusión de elegancia japonesa y minimalismo escandinavo.', prompt: 'Transforma este espacio en un diseño de estilo Japandi. Usa una mezcla de elegancia japonesa y minimalismo escandinavo, maderas claras y oscuras contrastantes, bambú, papel de arroz y formas orgánicas bajas. Mantén la distribución estructural básica.', previewColor: 'bg-stone-200', category: 'interior' },
+  { id: 'zen-garden', name: 'Jardín Zen', description: 'Tranquilidad al aire libre con bambú, piedras y agua.', prompt: 'Transforma este espacio exterior en un Jardín Zen. Usa elementos naturales como bambú, arena rastrillada, piedras lisas, fuentes de agua minimalistas y plantas de arce japonés. Mantén la distribución estructural básica.', previewColor: 'bg-emerald-100', category: 'exterior' },
+  { id: 'mediterranean-patio', name: 'Patio Mediterráneo', description: 'Cálido y acogedor con terracota, enredaderas y azulejos.', prompt: 'Transforma este espacio exterior en un Patio Mediterráneo. Usa baldosas de terracota, paredes de estuco blanco, enredaderas de buganvilla, muebles de hierro forjado y macetas de cerámica. Mantén la distribución estructural básica.', previewColor: 'bg-orange-50', category: 'exterior' },
+  { id: 'modern-terrace', name: 'Terraza Moderna', description: 'Elegante espacio exterior con líneas limpias y fogatas.', prompt: 'Transforma este espacio exterior en una Terraza Moderna. Usa pisos de concreto o madera compuesta, muebles de exterior minimalistas, barandas de vidrio, iluminación LED integrada y una fogata lineal. Mantén la distribución estructural básica.', previewColor: 'bg-slate-200', category: 'exterior' },
+  { id: 'tropical-oasis', name: 'Oasis Tropical', description: 'Vegetación exuberante, madera de teca y ambiente relajante.', prompt: 'Transforma este espacio exterior en un Oasis Tropical. Usa vegetación exuberante, palmeras, muebles de madera de teca, cojines blancos y detalles en ratán. Mantén la distribución estructural básica.', previewColor: 'bg-lime-100', category: 'exterior' },
+  { id: 'urban-balcony', name: 'Balcón Urbano', description: 'Aprovechamiento inteligente del espacio con toques modernos.', prompt: 'Transforma este espacio exterior en un Balcón Urbano. Usa muebles plegables o compactos, jardines verticales, iluminación de guirnaldas y texturas modernas. Mantén la distribución estructural básica.', previewColor: 'bg-sky-100', category: 'exterior' },
 ];
 
 // --- Components ---
@@ -117,6 +123,7 @@ const CompareSlider = ({ original, reimagined }: { original: string; reimagined:
 export default function App() {
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [reimaginedImage, setReimaginedImage] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<'interior' | 'exterior'>('interior');
   const [selectedStyle, setSelectedStyle] = useState<Style>(STYLES[0]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -134,7 +141,7 @@ export default function App() {
       chatSessionRef.current = ai.chats.create({
         model: 'gemini-3.1-pro-preview',
         config: {
-          systemInstruction: "Eres un experto Consultor de Diseño de Interiores de IA. Ayuda a los usuarios a refinar los diseños de sus habitaciones. Cuando pidan cambios, sugiere cómo se vería. Si piden artículos, proporciona descripciones estilo tienda y enlaces (usa enlaces de ejemplo como 'https://www.ikea.com' o 'https://www.westelm.com'). Sé alentador y profesional. Tienes acceso al contexto de la foto de la habitación subida por el usuario. Responde siempre en español."
+          systemInstruction: "Eres un experto Consultor de Diseño de Interiores y Exteriores de IA. Ayuda a los usuarios a refinar los diseños de sus habitaciones, jardines o patios. Cuando pidan cambios, sugiere cómo se vería. Si piden artículos, proporciona descripciones estilo tienda y enlaces (usa enlaces de ejemplo como 'https://www.ikea.com' o 'https://www.westelm.com'). Sé alentador y profesional. Tienes acceso al contexto de la foto del espacio subida por el usuario. Responde siempre en español."
         }
       });
     }
@@ -192,7 +199,7 @@ export default function App() {
     try {
       const base64Data = originalImage.split(',')[1];
       const prompt = refinementPrompt 
-        ? `Basado en el diseño anterior, ${refinementPrompt}. Mantén la estructura principal de la habitación de la foto original.`
+        ? `Basado en el diseño anterior, ${refinementPrompt}. Mantén la estructura principal del espacio de la foto original.`
         : style.prompt;
 
       const response = await ai.models.generateContent({
@@ -256,7 +263,7 @@ export default function App() {
               <Sparkles className="text-white w-6 h-6" />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight">Aura Interior AI</h1>
+              <h1 className="text-xl font-bold tracking-tight">Aura Espacios AI</h1>
               <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Consultor de Diseño</p>
             </div>
           </div>
@@ -297,10 +304,12 @@ export default function App() {
               <p className="text-zinc-500 max-w-xs mx-auto">
                 Toma una foto de tu habitación y deja que nuestra IA imagine las posibilidades.
               </p>
-              <div className="mt-8 flex gap-2">
+              <div className="mt-8 flex flex-wrap justify-center gap-2">
                 <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Sala</span>
                 <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Dormitorio</span>
                 <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">Oficina</span>
+                <span className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold uppercase tracking-wider">Jardín</span>
+                <span className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold uppercase tracking-wider">Patio</span>
               </div>
             </motion.div>
           ) : (
@@ -334,24 +343,48 @@ export default function App() {
                 
                 <button 
                   onClick={() => { setOriginalImage(null); setReimaginedImage(null); }}
-                  className="absolute -top-4 -right-4 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-zinc-50 transition-colors border border-black/5"
+                  className="absolute top-4 right-4 px-4 py-2 bg-white/90 backdrop-blur-md rounded-full shadow-lg flex items-center gap-2 hover:bg-white transition-colors border border-black/5 text-sm font-medium text-zinc-700 z-20"
                 >
-                  <RefreshCw className="w-5 h-5 text-zinc-400" />
+                  <RefreshCw className="w-4 h-4" />
+                  Subir nueva foto
                 </button>
               </div>
 
               {/* Style Carousel */}
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">Seleccionar Estilo</h3>
+                <div className="flex items-center justify-between border-b border-black/5 pb-2">
+                  <div className="flex gap-6">
+                    <button 
+                      onClick={() => {
+                        setActiveCategory('interior');
+                        const firstInterior = STYLES.find(s => s.category === 'interior')!;
+                        if (selectedStyle.category !== 'interior') setSelectedStyle(firstInterior);
+                      }}
+                      className={cn("text-sm font-bold uppercase tracking-widest transition-colors relative", activeCategory === 'interior' ? "text-indigo-600" : "text-zinc-400 hover:text-zinc-600")}
+                    >
+                      Interiores
+                      {activeCategory === 'interior' && <div className="absolute -bottom-2.5 left-0 right-0 h-0.5 bg-indigo-600 rounded-t-full"></div>}
+                    </button>
+                    <button 
+                      onClick={() => {
+                        setActiveCategory('exterior');
+                        const firstExterior = STYLES.find(s => s.category === 'exterior')!;
+                        if (selectedStyle.category !== 'exterior') setSelectedStyle(firstExterior);
+                      }}
+                      className={cn("text-sm font-bold uppercase tracking-widest transition-colors relative", activeCategory === 'exterior' ? "text-indigo-600" : "text-zinc-400 hover:text-zinc-600")}
+                    >
+                      Exteriores
+                      {activeCategory === 'exterior' && <div className="absolute -bottom-2.5 left-0 right-0 h-0.5 bg-indigo-600 rounded-t-full"></div>}
+                    </button>
+                  </div>
                   <div className="flex gap-1">
                     <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
                     <div className="w-2 h-2 rounded-full bg-zinc-200"></div>
                     <div className="w-2 h-2 rounded-full bg-zinc-200"></div>
                   </div>
                 </div>
-                <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-                  {STYLES.map((style) => (
+                <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
+                  {STYLES.filter(s => s.category === activeCategory).map((style) => (
                     <button
                       key={style.id}
                       onClick={() => {
@@ -359,7 +392,7 @@ export default function App() {
                         if (reimaginedImage) generateReimagined(style);
                       }}
                       className={cn(
-                        "flex-shrink-0 w-48 p-4 rounded-2xl border transition-all text-left group",
+                        "flex-shrink-0 w-48 p-4 rounded-2xl border transition-all text-left group snap-start",
                         selectedStyle.id === style.id 
                           ? "border-indigo-600 bg-indigo-50/50 ring-4 ring-indigo-50" 
                           : "border-black/5 bg-white hover:border-zinc-300"
@@ -501,7 +534,7 @@ export default function App() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2 opacity-50 grayscale">
             <Sparkles className="w-5 h-5" />
-            <span className="font-bold text-sm tracking-tighter">AURA INTERIOR AI</span>
+            <span className="font-bold text-sm tracking-tighter">AURA ESPACIOS AI</span>
           </div>
           <p className="text-sm text-zinc-400 max-w-md">
             Transformando espacios con inteligencia artificial. Aura AI te ayuda a visualizar la casa de tus sueños en segundos.
@@ -512,7 +545,7 @@ export default function App() {
             <a href="#" className="hover:text-zinc-900 transition-colors">Soporte</a>
           </div>
           <p className="text-[10px] text-zinc-300 mt-4">
-            &copy; 2026 Aura Interior AI. Todos los derechos reservados.
+            &copy; 2026 Aura Espacios AI. Todos los derechos reservados.
           </p>
         </div>
       </footer>
